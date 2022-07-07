@@ -6,7 +6,10 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <!-- Strings used for week overview fragment -->
+    <string name="week_overview_toolbar_title">Week %1$d</string>
+    <string name="generate_email_fab_contentDescription">Generate email</string>
+    <!-- Lorem ipsum -->
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
