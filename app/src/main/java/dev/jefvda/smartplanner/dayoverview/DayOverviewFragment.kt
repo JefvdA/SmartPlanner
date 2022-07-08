@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.jefvda.smartplanner.R
 import dev.jefvda.smartplanner.convertCalendarToDateString
-import dev.jefvda.smartplanner.database.Activity
 import dev.jefvda.smartplanner.database.Weekday
 import dev.jefvda.smartplanner.databinding.FragmentDayOverviewBinding
-import java.util.*
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -48,7 +46,7 @@ class DayOverviewFragment : Fragment() {
 
         activityListRecyclerView = binding.activityListRecyclerView.apply {
             layoutManager = LinearLayoutManager(binding.root.context)
-            activityListAdapter = ActivityListAdapter(getInitialActivities())
+            activityListAdapter = ActivityListAdapter(mutableListOf())
             adapter = activityListAdapter
         }
 
@@ -58,18 +56,5 @@ class DayOverviewFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun getInitialActivities(): MutableList<Activity> {
-        return mutableListOf(
-            Activity("App afwerken", Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, 10)
-                set(Calendar.MINUTE, 0)
-            }),
-            Activity("Summerschool drink", Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, 16)
-                set(Calendar.MINUTE, 0)
-            }),
-        )
     }
 }

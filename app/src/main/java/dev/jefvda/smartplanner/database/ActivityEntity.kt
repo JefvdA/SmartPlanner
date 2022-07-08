@@ -9,7 +9,7 @@ import java.util.*
 
 @Parcelize
 @Entity(tableName = "tblActivities")
-class Activity(
+class ActivityEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0L,
     var description: String,

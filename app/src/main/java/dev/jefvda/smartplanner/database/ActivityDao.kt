@@ -1,19 +1,18 @@
 package dev.jefvda.smartplanner.database
 
-import dev.jefvda.smartplanner.database.Activity
 import androidx.room.*
 
 @Dao
 interface ActivityDao {
     @Insert
-    suspend fun insert(activity: Activity)
+    suspend fun insert(activity: ActivityEntity)
 
     @Update
-    suspend fun update(activity: Activity)
+    suspend fun update(activity: ActivityEntity)
 
     @Delete
-    suspend fun delete(activity: Activity)
+    suspend fun delete(activity: ActivityEntity)
 
     @Query("SELECT * FROM tblActivities WHERE weekday=:weekday ORDER BY startTime DESC")
-    suspend fun selectAllForWeekday(weekday: String): MutableList<Activity>
+    suspend fun selectAllForWeekday(weekday: String): MutableList<ActivityEntity>
 }
