@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.jefvda.smartplanner.databinding.FragmentWeekOverviewBinding
@@ -43,7 +44,7 @@ class WeekOverviewFragment : Fragment() {
         weekdayListRecyclerView = binding.weekdayListRecyclerView.let {
             it.layoutManager = LinearLayoutManager(binding.root.context)
             weekdayListAdapter = WeekdayListAdapter(getInitialWeekdays()) { weekday ->
-                Log.d("WeekOverviewFragment", "You have clicked on ${weekday.day}")
+                navigateToDayOverview(weekday)
             }
             it.adapter = weekdayListAdapter
             it
@@ -73,5 +74,10 @@ class WeekOverviewFragment : Fragment() {
             Weekday(getString(R.string.saturday), dayOfYearForMonday + 5),
             Weekday(getString(R.string.sunday), dayOfYearForMonday + 6)
         )
+    }
+
+    private fun navigateToDayOverview(weekday: Weekday) {
+        val action = WeekOverviewFragmentDirections.actionWeekOverviewFragmentToDayOverviewFragment(weekday)
+        findNavController().navigate(action)
     }
 }
