@@ -15,5 +15,5 @@ interface ActivityDao {
     suspend fun delete(activity: Activity)
 
     @Query("SELECT * FROM tblActivities WHERE weekday=:weekday ORDER BY startTime DESC")
-    suspend fun selectAllForWeekday(weekday: String)
+    suspend fun selectAllForWeekday(weekday: String): MutableList<Activity>
 }
