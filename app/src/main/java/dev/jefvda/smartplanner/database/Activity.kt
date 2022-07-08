@@ -13,5 +13,6 @@ class Activity(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0L,
     var description: String,
-    var startTime: Calendar
+    var startTime: Calendar,
+    var weekday: String
 ): Parcelable {}
