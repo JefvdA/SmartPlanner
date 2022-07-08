@@ -17,6 +17,8 @@
     <!-- Strings used for week overview fragment -->
     <string name="week_overview_toolbar_title">Week %1$d</string>
     <string name="generate_email_fab_contentDescription">Generate email</string>
+    <!-- Strings used for day overview fragment -->
+    <string name="add_activity_fab_contentDescription">Add an activity</string>
     <!-- Lorem ipsum -->
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
