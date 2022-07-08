@@ -11,7 +11,7 @@
         android:label="@string/week_overview_fragment_label"
         tools:layout="@layout/fragment_week_overview"/>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/DayOverviewFragment"
         android:name="dev.jefvda.smartplanner.DayOverviewFragment"
         android:label="@string/day_overview_fragment_label"
         tools:layout="@layout/fragment_day_overview"/>
