@@ -21,7 +21,7 @@ class ActivityListViewModel(private var datasource: ActivityDao): ViewModel() {
 
     fun readActivities(weekday: Weekday) {
         viewModelScope.launch {
-            _activityList.postValue(datasource.selectAllForWeekday(weekday.day))
+            _activityList.postValue(datasource.selectAllForWeekday(weekday.day).toMutableList())
         }
     }
 }
