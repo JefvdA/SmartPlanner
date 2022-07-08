@@ -9,10 +9,18 @@
         android:id="@+id/WeekOverviewFragment"
         android:name="dev.jefvda.smartplanner.WeekOverviewFragment"
         android:label="@string/week_overview_fragment_label"
-        tools:layout="@layout/fragment_week_overview"/>
+        tools:layout="@layout/fragment_week_overview">
+        <action
+            android:id="@+id/action_WeekOverviewFragment_to_DayOverviewFragment"
+            app:destination="@id/DayOverviewFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="dev.jefvda.smartplanner.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second"/>
+        android:id="@+id/DayOverviewFragment"
+        android:name="dev.jefvda.smartplanner.DayOverviewFragment"
+        android:label="@string/day_overview_fragment_label"
+        tools:layout="@layout/fragment_day_overview">
+        <argument
+            android:name="weekday"
+            app:argType="dev.jefvda.smartplanner.Weekday" />
+    </fragment>
 </navigation>

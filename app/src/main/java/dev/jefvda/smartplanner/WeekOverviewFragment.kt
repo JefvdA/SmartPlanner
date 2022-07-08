@@ -1,11 +1,13 @@
 package dev.jefvda.smartplanner
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.jefvda.smartplanner.databinding.FragmentWeekOverviewBinding
@@ -41,7 +43,9 @@ class WeekOverviewFragment : Fragment() {
 
         weekdayListRecyclerView = binding.weekdayListRecyclerView.let {
             it.layoutManager = LinearLayoutManager(binding.root.context)
-            weekdayListAdapter = WeekdayListAdapter(getInitialWeekdays())
+            weekdayListAdapter = WeekdayListAdapter(getInitialWeekdays()) { weekday ->
+                navigateToDayOverview(weekday)
+            }
             it.adapter = weekdayListAdapter
             it
         }
@@ -70,5 +74,10 @@ class WeekOverviewFragment : Fragment() {
             Weekday(getString(R.string.saturday), dayOfYearForMonday + 5),
             Weekday(getString(R.string.sunday), dayOfYearForMonday + 6)
         )
+    }
+
+    private fun navigateToDayOverview(weekday: Weekday) {
+        val action = WeekOverviewFragmentDirections.actionWeekOverviewFragmentToDayOverviewFragment(weekday)
+        findNavController().navigate(action)
     }
 }
