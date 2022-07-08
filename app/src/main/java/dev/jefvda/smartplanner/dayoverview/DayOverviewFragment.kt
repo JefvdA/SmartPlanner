@@ -1,4 +1,4 @@
-package dev.jefvda.smartplanner
+package dev.jefvda.smartplanner.dayoverview
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dev.jefvda.smartplanner.R
+import dev.jefvda.smartplanner.convertCalendarToDateString
+import dev.jefvda.smartplanner.database.Activity
+import dev.jefvda.smartplanner.database.Weekday
 import dev.jefvda.smartplanner.databinding.FragmentDayOverviewBinding
 import java.util.*
 

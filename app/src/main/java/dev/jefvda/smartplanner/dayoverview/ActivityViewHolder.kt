@@ -1,8 +1,11 @@
-package dev.jefvda.smartplanner
+package dev.jefvda.smartplanner.dayoverview
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import dev.jefvda.smartplanner.R
+import dev.jefvda.smartplanner.convertCalendarToTimeString
+import dev.jefvda.smartplanner.database.Activity
 
 class ActivityViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 

@@ -1,4 +1,4 @@
-package dev.jefvda.smartplanner
+package dev.jefvda.smartplanner.database
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

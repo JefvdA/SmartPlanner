@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/WeekOverviewFragment"
-        android:name="dev.jefvda.smartplanner.WeekOverviewFragment"
+        android:name="dev.jefvda.smartplanner.weekoverview.WeekOverviewFragment"
         android:label="@string/week_overview_fragment_label"
         tools:layout="@layout/fragment_week_overview">
         <action
@@ -16,11 +16,11 @@
     </fragment>
     <fragment
         android:id="@+id/DayOverviewFragment"
-        android:name="dev.jefvda.smartplanner.DayOverviewFragment"
+        android:name="dev.jefvda.smartplanner.dayoverview.DayOverviewFragment"
         android:label="@string/day_overview_fragment_label"
         tools:layout="@layout/fragment_day_overview">
         <argument
             android:name="weekday"
-            app:argType="dev.jefvda.smartplanner.Weekday" />
+            app:argType="dev.jefvda.smartplanner.database.Weekday" />
     </fragment>
 </navigation>
