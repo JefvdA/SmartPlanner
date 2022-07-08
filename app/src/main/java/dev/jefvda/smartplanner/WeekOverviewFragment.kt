@@ -50,7 +50,7 @@ class WeekOverviewFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.week_overview_toolbar_title, 26)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.week_overview_toolbar_title, calendar.get(Calendar.WEEK_OF_YEAR))
     }
 
     override fun onDestroyView() {
