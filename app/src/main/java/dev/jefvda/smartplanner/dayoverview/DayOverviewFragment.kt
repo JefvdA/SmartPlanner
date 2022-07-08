@@ -46,11 +46,10 @@ class DayOverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activityListRecyclerView = binding.activityListRecyclerView.let {
-            it.layoutManager = LinearLayoutManager(binding.root.context)
+        activityListRecyclerView = binding.activityListRecyclerView.apply {
+            layoutManager = LinearLayoutManager(binding.root.context)
             activityListAdapter = ActivityListAdapter(getInitialActivities())
-            it.adapter = activityListAdapter
-            it
+            adapter = activityListAdapter
         }
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.day_overview_toolbar_title, weekday.day, convertCalendarToDateString(weekday.calendar))
@@ -63,15 +62,13 @@ class DayOverviewFragment : Fragment() {
 
     private fun getInitialActivities(): MutableList<Activity> {
         return mutableListOf(
-            Activity("App afwerken", Calendar.getInstance().let {
-                it.set(Calendar.HOUR_OF_DAY, 10)
-                it.set(Calendar.MINUTE, 0)
-                it
+            Activity("App afwerken", Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 10)
+                set(Calendar.MINUTE, 0)
             }),
-            Activity("Summerschool drink", Calendar.getInstance().let {
-                it.set(Calendar.HOUR_OF_DAY, 16)
-                it.set(Calendar.MINUTE, 0)
-                it
+            Activity("Summerschool drink", Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 16)
+                set(Calendar.MINUTE, 0)
             }),
         )
     }

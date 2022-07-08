@@ -50,20 +50,18 @@ class WeekOverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        weekdayListRecyclerView = binding.weekdayListRecyclerView.let {
-            it.layoutManager = LinearLayoutManager(binding.root.context)
+        weekdayListRecyclerView = binding.weekdayListRecyclerView.apply {
+            layoutManager = LinearLayoutManager(binding.root.context)
             weekdayListAdapter = WeekdayListAdapter(getInitialWeekdays()) { weekday ->
                 navigateToDayOverview(weekday)
             }
-            it.adapter = weekdayListAdapter
-            it
+            adapter = weekdayListAdapter
         }
 
-        generateEmailFAB = binding.generateEmailFAB.let {
-            it.setOnClickListener {
+        generateEmailFAB = binding.generateEmailFAB.apply {
+            setOnClickListener {
                 generateEmail()
             }
-            it
         }
     }
 
@@ -106,17 +104,15 @@ class WeekOverviewFragment : Fragment() {
         val body = getString(R.string.email_body, calendar.get(Calendar.WEEK_OF_YEAR))
 
         val urlString = "mailto:${Uri.encode(toAddress)}?subject=${Uri.encode(subject)}&body=${Uri.encode(body)}"
-        val selectorIntent = Intent(Intent.ACTION_SENDTO).let {
-            it.data = Uri.parse(urlString)
-            it
+        val selectorIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse(urlString)
         }
 
-        val mailIntent = Intent(Intent.ACTION_SEND).let {
-            it.putExtra(Intent.EXTRA_EMAIL, arrayOf(toAddress))
-            it.putExtra(Intent.EXTRA_SUBJECT, subject)
-            it.putExtra(Intent.EXTRA_TEXT, body)
-            it.selector = selectorIntent
-            it
+        val mailIntent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(toAddress))
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, body)
+            selector = selectorIntent
         }
 
         try {
