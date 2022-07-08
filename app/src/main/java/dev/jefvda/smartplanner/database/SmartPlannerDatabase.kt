@@ -21,6 +21,7 @@ abstract class SmartPlannerDatabase: RoomDatabase() {
             if(instance == null)
                 instance = Room.databaseBuilder(context.applicationContext, SmartPlannerDatabase::class.java,
                     "smart_planner_database")
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()
 
