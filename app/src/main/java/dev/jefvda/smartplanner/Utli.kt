@@ -9,6 +9,10 @@ fun convertCalendarToDateString(calendar: Calendar): String {
         .format(calendar.time).toString()
 }
 
+fun convertCalendarToTimeString(calendar: Calendar): String {
+    return "${calendar.get(Calendar.HOUR_OF_DAY)}:${"%02d".format(calendar.get(Calendar.MINUTE))}"
+}
+
 fun getDateOfMondayInTwoWeeks(currentCalendar: Calendar): Calendar {
     val newCalendar = Calendar.getInstance().let {
         it.set(Calendar.DAY_OF_YEAR, currentCalendar.get(Calendar.DAY_OF_YEAR))

@@ -11,8 +11,8 @@ class ActivityViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private val activityStartTimeTextView: TextView = itemView.findViewById(R.id.activity_list_item_start_time)
 
     fun populateViewHolder(activity: Activity, position: Int) {
-        activityNumberTextView.text = position.toString()
+        activityNumberTextView.text = itemView.context.getString(R.string.activity_list_item_number, position + 1)
         activityDescriptionTextView.text = activity.description
-        activityStartTimeTextView.text = convertCalendarToDateString(activity.startTime)
+        activityStartTimeTextView.text = convertCalendarToTimeString(activity.startTime)
     }
 }
