@@ -1,6 +1,7 @@
 package dev.jefvda.smartplanner
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +42,9 @@ class WeekOverviewFragment : Fragment() {
 
         weekdayListRecyclerView = binding.weekdayListRecyclerView.let {
             it.layoutManager = LinearLayoutManager(binding.root.context)
-            weekdayListAdapter = WeekdayListAdapter(getInitialWeekdays())
+            weekdayListAdapter = WeekdayListAdapter(getInitialWeekdays()) { weekday ->
+                Log.d("WeekOverviewFragment", "You have clicked on ${weekday.day}")
+            }
             it.adapter = weekdayListAdapter
             it
         }
