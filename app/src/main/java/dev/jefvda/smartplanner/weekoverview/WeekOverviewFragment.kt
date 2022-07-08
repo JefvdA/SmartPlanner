@@ -1,18 +1,23 @@
 package dev.jefvda.smartplanner.weekoverview
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dev.jefvda.smartplanner.R
 import dev.jefvda.smartplanner.database.Weekday
 import dev.jefvda.smartplanner.databinding.FragmentWeekOverviewBinding
 import dev.jefvda.smartplanner.getDateOfMondayInTwoWeeks
+import java.lang.Exception
 import java.util.*
 
 /**
@@ -24,6 +29,8 @@ class WeekOverviewFragment : Fragment() {
 
     private lateinit var weekdayListRecyclerView: RecyclerView
     private lateinit var weekdayListAdapter: WeekdayListAdapter
+
+    private lateinit var generateEmailFAB: FloatingActionButton
 
     private val calendar = getDateOfMondayInTwoWeeks(Calendar.getInstance())
 
@@ -43,13 +50,18 @@ class WeekOverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        weekdayListRecyclerView = binding.weekdayListRecyclerView.let {
-            it.layoutManager = LinearLayoutManager(binding.root.context)
+        weekdayListRecyclerView = binding.weekdayListRecyclerView.apply {
+            layoutManager = LinearLayoutManager(binding.root.context)
             weekdayListAdapter = WeekdayListAdapter(getInitialWeekdays()) { weekday ->
                 navigateToDayOverview(weekday)
             }
-            it.adapter = weekdayListAdapter
-            it
+            adapter = weekdayListAdapter
+        }
+
+        generateEmailFAB = binding.generateEmailFAB.apply {
+            setOnClickListener {
+                generateEmail()
+            }
         }
     }
 
@@ -84,5 +96,29 @@ class WeekOverviewFragment : Fragment() {
                 weekday
             )
         findNavController().navigate(action)
+    }
+
+    private fun generateEmail() {
+        val toAddress = getString(R.string.email_to_address)
+        val subject = getString(R.string.email_subject, calendar.get(Calendar.WEEK_OF_YEAR))
+        val body = getString(R.string.email_body, calendar.get(Calendar.WEEK_OF_YEAR))
+
+        val urlString = "mailto:${Uri.encode(toAddress)}?subject=${Uri.encode(subject)}&body=${Uri.encode(body)}"
+        val selectorIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse(urlString)
+        }
+
+        val mailIntent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(toAddress))
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, body)
+            selector = selectorIntent
+        }
+
+        try {
+            startActivity(Intent.createChooser(mailIntent, "Choose a mail app"))
+        } catch (e: Exception) {
+            Toast.makeText(binding.root.context, "There was a problem with opening a mail app", Toast.LENGTH_LONG).show()
+        }
     }
 }
