@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.jefvda.smartplanner.databinding.FragmentWeekOverviewBinding
+import java.util.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -18,8 +19,9 @@ class WeekOverviewFragment : Fragment() {
     private var _binding: FragmentWeekOverviewBinding? = null
 
     private lateinit var weekdayListRecyclerView: RecyclerView
-
     private lateinit var weekdayListAdapter: WeekdayListAdapter
+
+    private val calendar = getDateOfMondayInTwoWeeks(Calendar.getInstance())
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -57,14 +59,16 @@ class WeekOverviewFragment : Fragment() {
     }
 
     private fun getInitialWeekdays(): MutableList<Weekday> {
+        val dayOfYearForMonday = calendar.get(Calendar.DAY_OF_YEAR)
+
         return mutableListOf(
-            Weekday(getString(R.string.monday), System.currentTimeMillis()),
-            Weekday(getString(R.string.tuesday), System.currentTimeMillis()),
-            Weekday(getString(R.string.wednesday), System.currentTimeMillis()),
-            Weekday(getString(R.string.thursday), System.currentTimeMillis()),
-            Weekday(getString(R.string.friday), System.currentTimeMillis()),
-            Weekday(getString(R.string.saturday), System.currentTimeMillis()),
-            Weekday(getString(R.string.sunday), System.currentTimeMillis())
+            Weekday(getString(R.string.monday), dayOfYearForMonday),
+            Weekday(getString(R.string.tuesday), dayOfYearForMonday + 1),
+            Weekday(getString(R.string.wednesday), dayOfYearForMonday + 2),
+            Weekday(getString(R.string.thursday), dayOfYearForMonday + 3),
+            Weekday(getString(R.string.friday), dayOfYearForMonday + 4),
+            Weekday(getString(R.string.saturday), dayOfYearForMonday + 5),
+            Weekday(getString(R.string.sunday), dayOfYearForMonday + 6)
         )
     }
 }
