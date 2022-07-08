@@ -1,10 +1,8 @@
 package dev.jefvda.smartplanner.dayoverview
 
-import android.app.Application
 import androidx.lifecycle.*
 import dev.jefvda.smartplanner.database.ActivityEntity
 import dev.jefvda.smartplanner.database.ActivityDao
-import dev.jefvda.smartplanner.database.Weekday
 import kotlinx.coroutines.launch
 
 class ActivityListViewModel(private var datasource: ActivityDao): ViewModel() {
@@ -16,12 +14,13 @@ class ActivityListViewModel(private var datasource: ActivityDao): ViewModel() {
     fun saveActivity(activity: ActivityEntity) {
         viewModelScope.launch {
             datasource.insert(activity)
+            readActivities(activity.weekday)
         }
     }
 
-    fun readActivities(weekday: Weekday) {
+    fun readActivities(weekday: String) {
         viewModelScope.launch {
-            _activityList.postValue(datasource.selectAllForWeekday(weekday.day).toMutableList())
+            _activityList.postValue(datasource.selectAllForWeekday(weekday).toMutableList())
         }
     }
 }
