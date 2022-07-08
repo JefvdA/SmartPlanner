@@ -101,18 +101,18 @@ class WeekOverviewFragment : Fragment() {
     }
 
     private fun generateEmail() {
-        val to = "jef.v.d.a@live.be"
-        val subject = "Test-email"
-        val body = "This is a test email!"
+        val toAddress = getString(R.string.email_to_address)
+        val subject = getString(R.string.email_subject, calendar.get(Calendar.WEEK_OF_YEAR))
+        val body = getString(R.string.email_body, calendar.get(Calendar.WEEK_OF_YEAR))
 
-        val urlString = "mailto:${Uri.encode(to)}?subject=${Uri.encode(subject)}&body=${Uri.encode(body)}"
+        val urlString = "mailto:${Uri.encode(toAddress)}?subject=${Uri.encode(subject)}&body=${Uri.encode(body)}"
         val selectorIntent = Intent(Intent.ACTION_SENDTO).let {
             it.data = Uri.parse(urlString)
             it
         }
 
         val mailIntent = Intent(Intent.ACTION_SEND).let {
-            it.putExtra(Intent.EXTRA_EMAIL, arrayOf(to))
+            it.putExtra(Intent.EXTRA_EMAIL, arrayOf(toAddress))
             it.putExtra(Intent.EXTRA_SUBJECT, subject)
             it.putExtra(Intent.EXTRA_TEXT, body)
             it.selector = selectorIntent

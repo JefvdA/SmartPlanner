@@ -21,6 +21,23 @@
     <string name="day_overview_toolbar_title">%1$s %2$s</string>
     <string name="add_activity_fab_contentDescription">Add an activity</string>
     <string name="activity_list_item_number">#%1$d</string>
+    <!-- Strings used to generate emails -->
+    <string name="email_to_address">mywork@gmail.com</string>
+    <string name="email_subject">Beschikbaarheid week %1$d</string>
+    <string name="email_body">
+        Beste, \n
+        \n
+        Hier mijn beschikbaarheid voor week %1$d \n
+        Maandag: helemaal \n
+        Dinsdag: helemaal \n
+        Woensdag: helemaal \n
+        Donderdag: helemaal \n
+        Vrijdag: helemaal \n
+        Zaterdag: helemaal \n
+        Zondag: helemaal \n
+        Mvg, \n
+        Jef
+    </string>
     <!-- Lorem ipsum -->
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
