@@ -3,6 +3,7 @@ package dev.jefvda.smartplanner
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dev.jefvda.smartplanner.database.Activity
 
 class ActivityListAdapter(var activityList: MutableList<Activity>): RecyclerView.Adapter<ActivityViewHolder>() {
 

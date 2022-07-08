@@ -3,6 +3,7 @@ package dev.jefvda.smartplanner
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import dev.jefvda.smartplanner.database.Activity
 
 class ActivityViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 

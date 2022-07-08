@@ -21,6 +21,6 @@
         tools:layout="@layout/fragment_day_overview">
         <argument
             android:name="weekday"
-            app:argType="dev.jefvda.smartplanner.Weekday" />
+            app:argType="dev.jefvda.smartplanner.database.Weekday" />
     </fragment>
 </navigation>

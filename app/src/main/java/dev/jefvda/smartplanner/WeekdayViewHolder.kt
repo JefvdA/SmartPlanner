@@ -3,7 +3,7 @@ package dev.jefvda.smartplanner
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import dev.jefvda.smartplanner.databinding.WeekdayListItemBinding
+import dev.jefvda.smartplanner.database.Weekday
 
 class WeekdayViewHolder(itemView: View, private val clickListener: WeekdayClickListener): RecyclerView.ViewHolder(itemView) {
 
