@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
-@Database(entities = [Activity::class], version = 1, exportSchema = false)
+@Database(entities = [ActivityEntity::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class SmartPlannerDatabase: RoomDatabase() {
 
     abstract val activityDao: ActivityDao
@@ -19,6 +21,7 @@ abstract class SmartPlannerDatabase: RoomDatabase() {
             if(instance == null)
                 instance = Room.databaseBuilder(context.applicationContext, SmartPlannerDatabase::class.java,
                     "smart_planner_database")
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()
 
