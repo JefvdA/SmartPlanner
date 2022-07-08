@@ -1,8 +1,9 @@
-package dev.jefvda.smartplanner
+package dev.jefvda.smartplanner.dayoverview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dev.jefvda.smartplanner.R
 import dev.jefvda.smartplanner.database.Activity
 
 class ActivityListAdapter(var activityList: MutableList<Activity>): RecyclerView.Adapter<ActivityViewHolder>() {
