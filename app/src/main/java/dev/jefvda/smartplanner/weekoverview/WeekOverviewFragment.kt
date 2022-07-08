@@ -1,18 +1,23 @@
 package dev.jefvda.smartplanner.weekoverview
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dev.jefvda.smartplanner.R
 import dev.jefvda.smartplanner.database.Weekday
 import dev.jefvda.smartplanner.databinding.FragmentWeekOverviewBinding
 import dev.jefvda.smartplanner.getDateOfMondayInTwoWeeks
+import java.lang.Exception
 import java.util.*
 
 /**
@@ -24,6 +29,8 @@ class WeekOverviewFragment : Fragment() {
 
     private lateinit var weekdayListRecyclerView: RecyclerView
     private lateinit var weekdayListAdapter: WeekdayListAdapter
+
+    private lateinit var generateEmailFAB: FloatingActionButton
 
     private val calendar = getDateOfMondayInTwoWeeks(Calendar.getInstance())
 
@@ -49,6 +56,13 @@ class WeekOverviewFragment : Fragment() {
                 navigateToDayOverview(weekday)
             }
             it.adapter = weekdayListAdapter
+            it
+        }
+
+        generateEmailFAB = binding.generateEmailFAB.let {
+            it.setOnClickListener {
+                generateEmail()
+            }
             it
         }
     }
@@ -84,5 +98,31 @@ class WeekOverviewFragment : Fragment() {
                 weekday
             )
         findNavController().navigate(action)
+    }
+
+    private fun generateEmail() {
+        val to = "jef.v.d.a@live.be"
+        val subject = "Test-email"
+        val body = "This is a test email!"
+
+        val urlString = "mailto:${Uri.encode(to)}?subject=${Uri.encode(subject)}&body=${Uri.encode(body)}"
+        val selectorIntent = Intent(Intent.ACTION_SENDTO).let {
+            it.data = Uri.parse(urlString)
+            it
+        }
+
+        val mailIntent = Intent(Intent.ACTION_SEND).let {
+            it.putExtra(Intent.EXTRA_EMAIL, arrayOf(to))
+            it.putExtra(Intent.EXTRA_SUBJECT, subject)
+            it.putExtra(Intent.EXTRA_TEXT, body)
+            it.selector = selectorIntent
+            it
+        }
+
+        try {
+            startActivity(Intent.createChooser(mailIntent, "Choose a mail app"))
+        } catch (e: Exception) {
+            Toast.makeText(binding.root.context, "There was a problem with opening a mail app", Toast.LENGTH_LONG).show()
+        }
     }
 }
