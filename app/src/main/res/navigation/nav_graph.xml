@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/WeekOverviewFragment"
-        android:name="dev.jefvda.smartplanner.WeekOverviewFragment"
+        android:name="dev.jefvda.smartplanner.weekoverview.WeekOverviewFragment"
         android:label="@string/week_overview_fragment_label"
         tools:layout="@layout/fragment_week_overview">
         <action

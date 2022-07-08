@@ -1,4 +1,4 @@
-package dev.jefvda.smartplanner
+package dev.jefvda.smartplanner.weekoverview
 
 import dev.jefvda.smartplanner.database.Weekday
 

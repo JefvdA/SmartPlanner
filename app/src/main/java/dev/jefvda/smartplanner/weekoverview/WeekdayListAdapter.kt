@@ -1,8 +1,9 @@
-package dev.jefvda.smartplanner
+package dev.jefvda.smartplanner.weekoverview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dev.jefvda.smartplanner.R
 import dev.jefvda.smartplanner.database.Weekday
 
 class WeekdayListAdapter(var weekdayList: MutableList<Weekday>, private val clickListener: WeekdayClickListener): RecyclerView.Adapter<WeekdayViewHolder>() {

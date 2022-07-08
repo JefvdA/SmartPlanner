@@ -1,4 +1,4 @@
-package dev.jefvda.smartplanner
+package dev.jefvda.smartplanner.weekoverview
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dev.jefvda.smartplanner.R
 import dev.jefvda.smartplanner.database.Weekday
 import dev.jefvda.smartplanner.databinding.FragmentWeekOverviewBinding
+import dev.jefvda.smartplanner.getDateOfMondayInTwoWeeks
 import java.util.*
 
 /**
@@ -77,7 +79,10 @@ class WeekOverviewFragment : Fragment() {
     }
 
     private fun navigateToDayOverview(weekday: Weekday) {
-        val action = WeekOverviewFragmentDirections.actionWeekOverviewFragmentToDayOverviewFragment(weekday)
+        val action =
+            WeekOverviewFragmentDirections.actionWeekOverviewFragmentToDayOverviewFragment(
+                weekday
+            )
         findNavController().navigate(action)
     }
 }
