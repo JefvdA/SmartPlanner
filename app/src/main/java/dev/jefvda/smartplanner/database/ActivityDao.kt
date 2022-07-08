@@ -1,6 +1,6 @@
 package dev.jefvda.smartplanner.database
 
-import android.app.Activity
+import dev.jefvda.smartplanner.database.Activity
 import androidx.room.*
 
 @Dao
