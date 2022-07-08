@@ -12,6 +12,6 @@ class WeekdayViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     fun populateViewHolder(weekday: Weekday) {
         dayTextView.text = weekday.day
-        dateTextView.text = weekday.date.toString()
+        dateTextView.text = convertCalendarToDateString(weekday.calendar)
     }
 }
