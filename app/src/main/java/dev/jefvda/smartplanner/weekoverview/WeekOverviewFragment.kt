@@ -7,15 +7,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dev.jefvda.smartplanner.R
+import dev.jefvda.smartplanner.database.SmartPlannerDatabase
 import dev.jefvda.smartplanner.database.Weekday
 import dev.jefvda.smartplanner.databinding.FragmentWeekOverviewBinding
+import dev.jefvda.smartplanner.dayoverview.ActivityListViewModel
+import dev.jefvda.smartplanner.dayoverview.ActivityListViewModelFactory
 import dev.jefvda.smartplanner.getDateOfMondayInTwoWeeks
 import java.lang.Exception
 import java.util.*
@@ -27,10 +32,14 @@ class WeekOverviewFragment : Fragment() {
 
     private var _binding: FragmentWeekOverviewBinding? = null
 
+    private lateinit var activityListViewModel: ActivityListViewModel
+
     private lateinit var weekdayListRecyclerView: RecyclerView
     private lateinit var weekdayListAdapter: WeekdayListAdapter
 
     private lateinit var generateEmailFAB: FloatingActionButton
+
+    private lateinit var clearActivitiesButton: Button
 
     private val calendar = getDateOfMondayInTwoWeeks(Calendar.getInstance())
 
@@ -43,6 +52,9 @@ class WeekOverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWeekOverviewBinding.inflate(inflater, container, false)
+
+        val viewModelFactory = ActivityListViewModelFactory(SmartPlannerDatabase.getInstance(this.requireContext()).activityDao)
+        activityListViewModel = ViewModelProvider(this, viewModelFactory)[ActivityListViewModel::class.java]
 
         return binding.root
     }
@@ -61,6 +73,12 @@ class WeekOverviewFragment : Fragment() {
         generateEmailFAB = binding.generateEmailFAB.apply {
             setOnClickListener {
                 generateEmail()
+            }
+        }
+
+        clearActivitiesButton = binding.clearActivitiesButton.apply {
+            setOnClickListener {
+                activityListViewModel.clearActivities()
             }
         }
     }

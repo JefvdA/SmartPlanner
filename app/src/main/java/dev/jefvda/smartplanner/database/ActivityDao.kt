@@ -15,4 +15,7 @@ interface ActivityDao {
 
     @Query("SELECT * FROM tblActivities WHERE weekday=:weekday ORDER BY startTime DESC")
     fun selectAllForWeekday(weekday: String): List<ActivityEntity>
+
+    @Query("DELETE FROM tblActivities")
+    fun clear()
 }

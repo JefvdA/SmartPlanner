@@ -23,4 +23,10 @@ class ActivityListViewModel(private var datasource: ActivityDao): ViewModel() {
             _activityList.postValue(datasource.selectAllForWeekday(weekday).toMutableList())
         }
     }
+
+    fun clearActivities() {
+        viewModelScope.launch {
+            datasource.clear()
+        }
+    }
 }
