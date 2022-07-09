@@ -1,14 +1,17 @@
 package dev.jefvda.smartplanner.weekoverview
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,11 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dev.jefvda.smartplanner.R
+import dev.jefvda.smartplanner.database.ActivityEntity
 import dev.jefvda.smartplanner.database.SmartPlannerDatabase
 import dev.jefvda.smartplanner.database.Weekday
 import dev.jefvda.smartplanner.databinding.FragmentWeekOverviewBinding
 import dev.jefvda.smartplanner.dayoverview.ActivityListViewModel
 import dev.jefvda.smartplanner.dayoverview.ActivityListViewModelFactory
+import dev.jefvda.smartplanner.dayoverview.DayOverviewFragment
 import dev.jefvda.smartplanner.getDateOfMondayInTwoWeeks
 import java.lang.Exception
 import java.util.*
@@ -78,7 +83,7 @@ class WeekOverviewFragment : Fragment() {
 
         clearActivitiesButton = binding.clearActivitiesButton.apply {
             setOnClickListener {
-                activityListViewModel.clearActivities()
+                showClearActivitiesDialog()
             }
         }
     }
@@ -94,6 +99,34 @@ class WeekOverviewFragment : Fragment() {
         _binding = null
     }
 
+    private fun showClearActivitiesDialog() {
+        AlertDialog.Builder(binding.root.context)
+            .setTitle("Clear activities")
+            .setMessage("Are you sure you want to delete all activities?")
+            .setPositiveButton("Delete") { dialogInterface: DialogInterface, _: Int ->
+                activityListViewModel.clearActivities()
+                showActivitiesAreClearedToast()
+                dialogInterface.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialogInterface: DialogInterface, _: Int ->
+                dialogInterface.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    private fun showActivitiesAreClearedToast() {
+        Toast.makeText(this.context, "All activities have been cleared", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun navigateToDayOverview(weekday: Weekday) {
+        val action =
+            WeekOverviewFragmentDirections.actionWeekOverviewFragmentToDayOverviewFragment(
+                weekday
+            )
+        findNavController().navigate(action)
+    }
+
     private fun getInitialWeekdays(): MutableList<Weekday> {
         val dayOfYearForMonday = calendar.get(Calendar.DAY_OF_YEAR)
 
@@ -106,14 +139,6 @@ class WeekOverviewFragment : Fragment() {
             Weekday(getString(R.string.saturday), dayOfYearForMonday + 5),
             Weekday(getString(R.string.sunday), dayOfYearForMonday + 6)
         )
-    }
-
-    private fun navigateToDayOverview(weekday: Weekday) {
-        val action =
-            WeekOverviewFragmentDirections.actionWeekOverviewFragmentToDayOverviewFragment(
-                weekday
-            )
-        findNavController().navigate(action)
     }
 
     private fun generateEmail() {
