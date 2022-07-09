@@ -17,6 +17,7 @@
     <!-- Strings used for week overview fragment -->
     <string name="week_overview_toolbar_title">Week %1$d</string>
     <string name="generate_email_fab_contentDescription">Generate email</string>
+    <string name="clear_activities_button_text">Clear activities</string>
     <!-- Strings used for day overview fragment -->
     <string name="day_overview_toolbar_title">%1$s %2$s</string>
     <string name="add_activity_fab_contentDescription">Add an activity</string>

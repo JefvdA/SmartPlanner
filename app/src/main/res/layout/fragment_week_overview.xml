@@ -23,4 +23,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="32dp"
             app:srcCompat="@android:drawable/ic_dialog_email" />
+
+        <Button
+            android:id="@+id/clearActivitiesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/clear_activities_button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="32dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
