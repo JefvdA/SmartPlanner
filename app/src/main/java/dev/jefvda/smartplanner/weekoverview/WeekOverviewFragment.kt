@@ -1,5 +1,6 @@
 package dev.jefvda.smartplanner.weekoverview
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,15 +8,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dev.jefvda.smartplanner.R
+import dev.jefvda.smartplanner.database.SmartPlannerDatabase
 import dev.jefvda.smartplanner.database.Weekday
 import dev.jefvda.smartplanner.databinding.FragmentWeekOverviewBinding
+import dev.jefvda.smartplanner.dayoverview.ActivityListViewModel
+import dev.jefvda.smartplanner.dayoverview.ActivityListViewModelFactory
 import dev.jefvda.smartplanner.getDateOfMondayInTwoWeeks
 import java.lang.Exception
 import java.util.*
@@ -27,10 +34,14 @@ class WeekOverviewFragment : Fragment() {
 
     private var _binding: FragmentWeekOverviewBinding? = null
 
+    private lateinit var activityListViewModel: ActivityListViewModel
+
     private lateinit var weekdayListRecyclerView: RecyclerView
     private lateinit var weekdayListAdapter: WeekdayListAdapter
 
     private lateinit var generateEmailFAB: FloatingActionButton
+
+    private lateinit var clearActivitiesButton: Button
 
     private val calendar = getDateOfMondayInTwoWeeks(Calendar.getInstance())
 
@@ -43,6 +54,9 @@ class WeekOverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWeekOverviewBinding.inflate(inflater, container, false)
+
+        val viewModelFactory = ActivityListViewModelFactory(SmartPlannerDatabase.getInstance(this.requireContext()).activityDao)
+        activityListViewModel = ViewModelProvider(this, viewModelFactory)[ActivityListViewModel::class.java]
 
         return binding.root
     }
@@ -63,6 +77,12 @@ class WeekOverviewFragment : Fragment() {
                 generateEmail()
             }
         }
+
+        clearActivitiesButton = binding.clearActivitiesButton.apply {
+            setOnClickListener {
+                showClearActivitiesDialog()
+            }
+        }
     }
 
     override fun onStart() {
@@ -74,6 +94,34 @@ class WeekOverviewFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showClearActivitiesDialog() {
+        AlertDialog.Builder(binding.root.context)
+            .setTitle("Clear activities")
+            .setMessage("Are you sure you want to delete all activities?")
+            .setPositiveButton("Delete") { dialogInterface: DialogInterface, _: Int ->
+                activityListViewModel.clearActivities()
+                showActivitiesAreClearedToast()
+                dialogInterface.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialogInterface: DialogInterface, _: Int ->
+                dialogInterface.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    private fun showActivitiesAreClearedToast() {
+        Toast.makeText(this.context, "All activities have been cleared", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun navigateToDayOverview(weekday: Weekday) {
+        val action =
+            WeekOverviewFragmentDirections.actionWeekOverviewFragmentToDayOverviewFragment(
+                weekday
+            )
+        findNavController().navigate(action)
     }
 
     private fun getInitialWeekdays(): MutableList<Weekday> {
@@ -88,14 +136,6 @@ class WeekOverviewFragment : Fragment() {
             Weekday(getString(R.string.saturday), dayOfYearForMonday + 5),
             Weekday(getString(R.string.sunday), dayOfYearForMonday + 6)
         )
-    }
-
-    private fun navigateToDayOverview(weekday: Weekday) {
-        val action =
-            WeekOverviewFragmentDirections.actionWeekOverviewFragmentToDayOverviewFragment(
-                weekday
-            )
-        findNavController().navigate(action)
     }
 
     private fun generateEmail() {
