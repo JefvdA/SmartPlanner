@@ -59,7 +59,6 @@ class DayOverviewFragment : Fragment() {
         val viewModelFactory = ActivityListViewModelFactory(SmartPlannerDatabase.getInstance(this.requireContext()).activityDao)
         activityListViewModel = ViewModelProvider(this, viewModelFactory)[ActivityListViewModel::class.java]
         activityListViewModel.activityList.observe(this.viewLifecycleOwner) {
-            Log.d("DayOverviewFragment", "activity list updated")
             activityListAdapter.activityList = it
             activityListAdapter.notifyDataSetChanged()
         }
@@ -97,16 +96,15 @@ class DayOverviewFragment : Fragment() {
         }
 
         AlertDialog.Builder(binding.root.context)
-            .setTitle("Create activity")
-            .setMessage("Give a description for the new activity")
+            .setTitle(getString(R.string.add_activity_alertdialog_title))
+            .setMessage(getString(R.string.add_activity_alertdialog_message))
             .setView(addActivityEditText)
-            .setPositiveButton("Create") { dialogInterface: DialogInterface, _: Int ->
+            .setPositiveButton(getString(R.string.create)) { dialogInterface: DialogInterface, _: Int ->
                 val newActivityDescription = addActivityEditText.text.toString()
                 activityListViewModel.saveActivity(ActivityEntity(0L, newActivityDescription, Calendar.getInstance(), weekday.day))
-                Log.d(TAG, "Creating new activity... ($newActivityDescription)")
                 dialogInterface.dismiss()
             }
-            .setNegativeButton("Cancel") { dialogInterface: DialogInterface, _: Int ->
+            .setNegativeButton(getString(R.string.cancel)) { dialogInterface: DialogInterface, _: Int ->
                 dialogInterface.dismiss()
             }
             .create()

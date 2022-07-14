@@ -98,14 +98,14 @@ class WeekOverviewFragment : Fragment() {
 
     private fun showClearActivitiesDialog() {
         AlertDialog.Builder(binding.root.context)
-            .setTitle("Clear activities")
-            .setMessage("Are you sure you want to delete all activities?")
-            .setPositiveButton("Delete") { dialogInterface: DialogInterface, _: Int ->
+            .setTitle(getString(R.string.clear_activities_alertdialog_title))
+            .setMessage(getString(R.string.clear_activities_alertdialog_message))
+            .setPositiveButton(getString(R.string.delete)) { dialogInterface: DialogInterface, _: Int ->
                 activityListViewModel.clearActivities()
                 showActivitiesAreClearedToast()
                 dialogInterface.dismiss()
             }
-            .setNegativeButton("Cancel") { dialogInterface: DialogInterface, _: Int ->
+            .setNegativeButton(getString(R.string.cancel)) { dialogInterface: DialogInterface, _: Int ->
                 dialogInterface.dismiss()
             }
             .create()
@@ -113,7 +113,7 @@ class WeekOverviewFragment : Fragment() {
     }
 
     private fun showActivitiesAreClearedToast() {
-        Toast.makeText(this.context, "All activities have been cleared", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this.context, getString(R.string.activities_are_cleared_toast_message), Toast.LENGTH_SHORT).show()
     }
 
     private fun navigateToDayOverview(weekday: Weekday) {
@@ -156,9 +156,9 @@ class WeekOverviewFragment : Fragment() {
         }
 
         try {
-            startActivity(Intent.createChooser(mailIntent, "Choose a mail app"))
+            startActivity(Intent.createChooser(mailIntent, getString(R.string.mail_intent_title)))
         } catch (e: Exception) {
-            Toast.makeText(binding.root.context, "There was a problem with opening a mail app", Toast.LENGTH_LONG).show()
+            Toast.makeText(binding.root.context, getString(R.string.mail_intent_error_message), Toast.LENGTH_LONG).show()
         }
     }
 }
