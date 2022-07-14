@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Instellingen</string>
+    <string name="next">Volgende</string>
+    <string name="previous">Vorige</string>
+    <string name="create">Toevoegen</string>
+    <string name="delete">Verwijderen</string>
+    <string name="cancel">Annuleren</string>
+    <string name="monday">Maandag</string>
+    <string name="tuesday">Dinsdag</string>
+    <string name="wednesday">Woensdag</string>
+    <string name="thursday">Donderdag</string>
+    <string name="friday">Vrijdag</string>
+    <string name="saturday">Zaterdag</string>
+    <string name="sunday">Zondag</string>
+    <string name="week_overview_toolbar_title">Week %1$d</string>
+    <string name="generate_email_fab_contentDescription">Email genereren</string>
+    <string name="clear_activities_button_text">Verwijder activiteiten</string>
+    <string name="clear_activities_alertdialog_title">Verwijder activiteiten</string>
+    <string name="clear_activities_alertdialog_message">Ben je zeker dat je all de activiteiten wilt verwijderen?</string>
+    <string name="activities_are_cleared_toast_message">Alle activiteiten zijn verwijderd</string>
+    <string name="mail_intent_title">Kies een mail app</string>
+    <string name="mail_intent_error_message">Er is een probleem opgetreden met het openen van een mail app</string>
+    <string name="add_activity_fab_contentDescription">Activiteit toevoegen</string>
+    <string name="add_activity_alertdialog_title">Voeg nieuwe activiteit toe</string>
+    <string name="add_activity_alertdialog_message">Geef een beschrijving voor de nieuwe activiteit</string>
+</resources>
